@@ -16,11 +16,12 @@ class sample_size_calculator():
     ): 
         
         """
+           :param int volume: The current volume of observerations you are expected to have. 
            :param float p1: The control rate.
-           :param float uplift: The relative expected change against the control.
+           :param float p2: The variant rate. 
            :param float ratio: The ratio between variant and control sample size. 
-           :type priority: integer or None
-           :return: The expected number of observations the variant needs for statistical significance. 
+           
+           
         """
         
         self.volume = volume
@@ -39,7 +40,8 @@ class sample_size_calculator():
 
         if self.uplift < 0:
             self.p2 = self.p1*(self.uplift-1)
-
+        
+        #80% power and two tailed 95% signifigiance level returns z_(1-b) = 0.84 and z_(1-a/2) = 1.96 
         nom = ((1.96+0.84)**2)*(self.p1*(1-self.p1)+self.p2*(1-self.p2)*self.ratio)**0.5
         denom = (self.p1-self.p2)**2
 
@@ -51,7 +53,7 @@ class sample_size_calculator():
         assert self.min is not None, 'Need to specify grid sizes'
         assert self.max is not None, 'Need to specify grid sizes'
     
-        grid = np.arange(self.min, self.max, 0.005)
+        grid = np.arange(self.min, self.max, 0.001)
 
         df = pd.DataFrame(columns=['Uplift - %', 'Samples', 'Current Volume'])
 
@@ -73,15 +75,16 @@ class sample_size_calculator():
 def run():
 
     import sys
+    pd.set_option('display.max_rows', 1000)
     
     init = sample_size_calculator(
-        p1 = sys.argv[0],
-        min_size = sys.argv[1],
-        max_size = sys.argv[2],
-        volume = sys.argv[3]
+        p1 = np.float(sys.argv[1]),
+        min_size = np.float(sys.argv[2]),
+        max_size = np.float(sys.argv[3]),
+        volume = np.float(sys.argv[4])
     )
     
-    init.simulate()    
+    print(init.simulate().head(100))
 
 if __name__ == "__main__":
     run()
