@@ -63,19 +63,3 @@ class sample_size_calculator():
             df['Additional Units of Time To Significance'] = np.where(df['Samples']<df['Current Volume'], 'No Units', df['Samples']/df['Current Volume'])
             df['Expected Significance'] = np.where(df['Current Volume'] > df['Samples'], 'Yes', 'No')
             return df 
-    
-def run():
-
-    import sys
-    pd.set_option('display.max_rows', 1000)
-    
-    init = sample_size_calculator(
-        p1 = np.float(sys.argv[1]),
-        min_size = np.float(sys.argv[2]),
-        max_size = np.float(sys.argv[3]),
-        volume = np.float(sys.argv[4])
-    )
-    print(init.simulate())
-
-if __name__ == "__main__":
-    run()
