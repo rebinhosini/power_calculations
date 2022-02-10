@@ -1,9 +1,7 @@
 import pandas as pd 
 import numpy as np 
 
-
 class sample_size_calculator():
-    
     
     def __init__(
         self, 
@@ -13,17 +11,14 @@ class sample_size_calculator():
         uplift = None,
         min_size = None,
         max_size = None
-    ): 
-        
+    ):         
         """
            :param int volume: The current volume of observerations you are expected to have. 
            :param float p1: The control rate.
            :param float p2: The variant rate. 
            :param float ratio: The ratio between variant and control sample size. 
-           
-           
-        """
-        
+
+        """ 
         self.volume = volume
         self.p1 = p1 
         self.p2 = None 
@@ -54,7 +49,6 @@ class sample_size_calculator():
         assert self.max is not None, 'Need to specify grid sizes'
     
         grid = np.arange(self.min, self.max, 0.001)
-
         df = pd.DataFrame(columns=['Uplift - %', 'Samples', 'Current Volume'])
 
         for i, u in enumerate(grid): 
@@ -70,8 +64,6 @@ class sample_size_calculator():
             df['Expected Significance'] = np.where(df['Current Volume'] > df['Samples'], 'Yes', 'No')
             return df 
     
-    
-    
 def run():
 
     import sys
@@ -83,8 +75,7 @@ def run():
         max_size = np.float(sys.argv[3]),
         volume = np.float(sys.argv[4])
     )
-    
-    print(init.simulate().head(100))
+    print(init.simulate())
 
 if __name__ == "__main__":
     run()
