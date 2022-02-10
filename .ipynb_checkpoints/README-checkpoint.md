@@ -1,5 +1,5 @@
 # Power analaysis for a/b testing ratios/proportions using MDE (Minimal Detectable Effect) 
-Using minimal detectable effect for frequentist power calculations in a/b testing. The script can run directly in the terminal where the required arguments are: 
+Using minimal detectable effect for frequentist power calculations in a/b testing. The run file requires following parameters:
 
 1. p1: The benchmark ratio 
 2. min_size: lower limit of evaluation the uplift evaluation grid
