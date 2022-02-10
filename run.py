@@ -1,7 +1,7 @@
 import sys
 import pandas as pd 
 import numpy as np
-from fetch_samples import sample_size_calculator as sp 
+from simulate import sample_size_calculator as sp 
 
 def run():
 
